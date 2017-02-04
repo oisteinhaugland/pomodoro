@@ -7,6 +7,10 @@ $primary-color: red;
 /**********************************
 GENERAL
 **********************************/
+#bigAssClock {
+	font-size: 10em;
+}
+
 
 
 
@@ -14,13 +18,3 @@ GENERAL
 NAVIGATION
 **********************************/
 
-
-nav {
-	ul {
-		li {
-			a {
-				color:$primary-color;
-			}
-		}
-	}
-}

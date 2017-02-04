@@ -4,10 +4,11 @@ VARIABLES
 /**********************************
 GENERAL
 **********************************/
+#bigAssClock {
+  font-size: 10em; }
+
 /**********************************
 NAVIGATION
 **********************************/
-nav ul li a {
-  color: red; }
 
 /*# sourceMappingURL=main.css.map */
