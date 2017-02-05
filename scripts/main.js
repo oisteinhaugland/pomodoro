@@ -1,7 +1,6 @@
 
 /***********************************************
 TODOS
-- add sound on both timer ends
 - add sexy styling
 - set up github pages
 
@@ -11,6 +10,7 @@ DONE
 - switch to session timer when break timer reaches 0
 - swith to break timer when timer reaches 0
 - Get the STOP function working
+- add sound on both timer ends
 **********************************************/
 
 
@@ -26,6 +26,7 @@ var haveBeenStartedOnce= false;
 var sessionStartValue;
 var breakStartValue;
 
+var audio = new Audio('nautical008.mp3');
 
 var session = $("#sessionTimer");
 var b = $("#breakTimer");
@@ -77,8 +78,10 @@ function update() {
 
 	if (sessionTime == 0){
 		onBreak = true
+		audio.play();
 	} else if (breakTime == 0){
 		onBreak = false;
+		audio.play();
 	}
 
 	if (!onBreak){
@@ -180,6 +183,12 @@ $(document).ready(function(){
 	$("#reset").on('click', function(){
 		reset();
 	});
+
+
+$("#sound").on('click', function(){
+		
+	});
+	
 
 });
 
