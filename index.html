@@ -18,45 +18,53 @@
 <script src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js'></script>
 <script src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js'></script>
 <![endif]-->
+
+  <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
 <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel='stylesheet' href='styles/normalize.css'>
 <link rel='stylesheet' href='styles/main.css'>
 
 </head>
 <body>
-<div class="container">
-	<h1>Pomodoro!</h1>
+<div class="container" id="box">
 
+	<h1>Pomodoro Timer <i class="fa fa-clock-o" aria-hidden="true"></i>
+</h1>
 	
-	
-	<h3>Session</h3>
-	<button id="sessionUp"><i class="fa fa-angle-up"></i></button>
-	<span id="sessionTimer">
-	
-	</span>
-	<button id="sessionDown"><i class="fa fa-angle-down"></i></button>
+	<div class="controls">
+		<h2>Session
+			 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+		</h2>
+		<button id="sessionUp"><i class="fa fa-angle-up"></i></button>
+		<span id="sessionTimer"></span>
 
+		<button id="sessionDown"><i class="fa fa-angle-down"></i></button>
 
-	<h3>Break</h3>
-	<button id="breakUp"><i class="fa fa-angle-up"></i></button>
-
-	<span id="breakTimer"></span>
-
-	<button id="breakDown"><i class="fa fa-angle-down"></i></button>
-	
-	<button id="start">Start</button>
-	<button id="reset">Reset</button>
-	<button id="pause">Pause</button>
-	<button id="stop">Stop</button>
-
-	<div>
-	<span id="bigAssClock"></span>
-	<span id="status"></span>
+		<h2>Break
+			 <i class="fa fa-coffee" aria-hidden="true"></i>
+		</h2>
+		<button id="breakUp"><i class="fa fa-angle-up"></i></button>
+		<span id="breakTimer"></span>
+		<button id="breakDown"><i class="fa fa-angle-down"></i></button>
 	</div>
 
-	<button id="sound">sound</button>
+	<div class="functions">
+		<button id="start">Start</button>
+		<button id="pause">Pause</button>
+		<button id="stop">Stop</button>
+		<button id="reset">Reset</button>
+		<button id="tick">Turn Ticker On</button>
+	</div>
 
-</div>
+	<span id="status">Study Time</span>
+	<div>
+
+	<span id="bigAssClock"></span>
+	<p>
+		<a href="https://www.noisli.com/" target="_blank">Noisli - Background noise for studying</a>
+	</p>
+	</div>
+</div> <!--container end -->
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'></script>

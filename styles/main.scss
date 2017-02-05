@@ -1,20 +1,81 @@
 
 /**********************************
-VARIABLES
-**********************************/
-$primary-color: red;
-
-/**********************************
 GENERAL
 **********************************/
-#bigAssClock {
-	font-size: 10em;
+body {
+	background-color:#f1c40f;
 }
 
 
+#bigAssClock {
+	font-size: 8em;
+	line-height: 0.8em;
+}
 
+#status {
+	font-size:1.8em;
+	display: inline-block;
+}
 
-/**********************************
-NAVIGATION
-**********************************/
+#box {
+	margin: 0 auto;
+}
 
+.controls {
+	margin:20px 0;
+	padding-bottom:5px;
+
+	span {
+		font-size: 2.5em;
+	}
+	
+	input[type="checkbox"] {
+ 	height: 50px;
+	}
+	button{
+		color:white;
+		background-color:#333;
+		border:none;
+		height:50px;
+		width:50px;
+		font-size: 2.5em;
+		border-radius: 50%;
+		&:hover {
+			
+			outline: none;
+			}
+		&:focus {
+			outline: none;
+		}
+
+	}
+} /*control end*/
+
+.functions {
+	button {
+		border:none;
+		background-color:#ecf0f1;
+		font-size: 1.5em;
+		border-radius: 5px;
+		padding: 7.5px 15px;
+		
+		&:hover {
+			outline: none;
+			}
+		&:focus {
+			outline: none;
+		}
+	}
+	#tick {
+		display: block;
+		margin-top:5px;
+	}
+}
+
+a {
+	font-size: 1.5em;
+	color:lighten(#333,2%);
+	&:hover{
+		color:#333;
+	}
+}

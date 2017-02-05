@@ -1,19 +1,4 @@
 
-/***********************************************
-TODOS
-- add sexy styling
-- set up github pages
-
-DONE
-- disable buttons for break and session timers when started = true
-- make session and break timers go no lower than 1 minute
-- switch to session timer when break timer reaches 0
-- swith to break timer when timer reaches 0
-- Get the STOP function working
-- add sound on both timer ends
-**********************************************/
-
-
 /*start values in seconds*/
 var started = false;
 var paused = false;
@@ -22,11 +7,14 @@ var sessionTime = 1500;
 var breakTime = 300;
 var temp = 0;
 var haveBeenStartedOnce= false;
+var tickerOn = false;
 
 var sessionStartValue;
 var breakStartValue;
 
 var audio = new Audio('nautical008.mp3');
+var tickerAudio = new Audio('clock-ticking-3.mp3');
+tickerAudio.loop = true;
 
 var session = $("#sessionTimer");
 var b = $("#breakTimer");
@@ -89,7 +77,7 @@ function update() {
 		$("#status").html("Study Time");
 	} else if (onBreak) {
 		sessionTime = sessionStartValue;
-		$("#status").html("Relax Time")
+		$("#status").html("Break Time")
 	}
 }
 
@@ -113,7 +101,10 @@ function reset() {
 function stop(){
 	started = false;
 	paused = false;
-	sessionTime = sessionStartValue;
+	if (haveBeenStartedOnce){
+	sessionTime = sessionStartValue;	
+	}
+	
 	clock.html(time(sessionTime));
 	haveBeenStartedOnce = false;
 	clearInterval(intervals);
@@ -184,9 +175,16 @@ $(document).ready(function(){
 		reset();
 	});
 
-
-$("#sound").on('click', function(){
-		
+	$("#tick").on('click', function(){
+		if (!tickerOn){
+			tickerOn = true;
+			$(this).html("Turn Ticker Off ")
+			tickerAudio.play();
+		} else {
+			tickerOn = false;
+			$(this).html("Turn Ticker On ")
+			tickerAudio.pause();
+		}
 	});
 	
 
