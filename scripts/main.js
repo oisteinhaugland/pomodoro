@@ -1,28 +1,36 @@
 
 /***********************************************
 TODOS
-- Get the STOP function working
-- swith to break timer when timer reaches 0
-	- how to check if interval is running
-	- and check if timer hits zero.
-- switch to session timer when break timer reaches 0
-	- how to check if interval is running
-	- and check if timer hits zero.
-- make session and break timers go no lower than 1 minute
 - add sound on both timer ends
 - add sexy styling
 - set up github pages
+
+DONE
+- disable buttons for break and session timers when started = true
+- make session and break timers go no lower than 1 minute
+- switch to session timer when break timer reaches 0
+- swith to break timer when timer reaches 0
+- Get the STOP function working
 **********************************************/
 
 
 /*start values in seconds*/
+var started = false;
+var paused = false;
+var onBreak = false;
 var sessionTime = 1500;
 var breakTime = 300;
 var temp = 0;
+var haveBeenStartedOnce= false;
+
+var sessionStartValue;
+var breakStartValue;
+
 
 var session = $("#sessionTimer");
 var b = $("#breakTimer");
 var clock = $("#bigAssClock");
+var status = $("#status");
 
 
 /*function that returns time*/
@@ -43,18 +51,49 @@ var rest = seconds % 60
 }
 
 var intervals;
-function update() {
-	sessionTime -= 1 
-	clock.html(time(sessionTime))
-}
 
 function start() {
+	
+	if (!haveBeenStartedOnce){
+		sessionStartValue = sessionTime;
+		breakStartValue = breakTime;	
+		haveBeenStartedOnce = true;
+	}
+	
+	started = true;
+	paused = false;
 	intervals = setInterval(update,1000);
-
 }
+
+function update() {
+	
+	if (sessionTime > 0 && !onBreak) {
+	sessionTime -= 1;
+	clock.html(time(sessionTime));
+	} else if (breakTime > 0 && onBreak) {
+	breakTime -= 1;
+	clock.html(time(breakTime));
+	}
+
+	if (sessionTime == 0){
+		onBreak = true
+	} else if (breakTime == 0){
+		onBreak = false;
+	}
+
+	if (!onBreak){
+		breakTime = breakStartValue; 
+		$("#status").html("Study Time");
+	} else if (onBreak) {
+		sessionTime = sessionStartValue;
+		$("#status").html("Relax Time")
+	}
+}
+
 
 function pause(){
 	clearInterval(intervals);
+	paused = true;
 }
 
 function reset() {
@@ -63,10 +102,18 @@ function reset() {
 	session.html(time(sessionTime));
 	b.html(time(breakTime));
 	clock.html(time(sessionTime))
+	started = false;
+	paused = false;
 	pause();
 }
 
 function stop(){
+	started = false;
+	paused = false;
+	sessionTime = sessionStartValue;
+	clock.html(time(sessionTime));
+	haveBeenStartedOnce = false;
+	clearInterval(intervals);
 	
 }
 
@@ -82,26 +129,35 @@ $(document).ready(function(){
 
 	/*Session timer Clicks*/
 	$("#sessionUp").on('click', function(){
-		sessionTime += 60
-		session.html(time(sessionTime))
-		clock.html(time(sessionTime))
+		if (!started){
+			sessionTime += 60
+			session.html(time(sessionTime))
+			clock.html(time(sessionTime))
+		}
 	});
 
 	$("#sessionDown").on('click', function(){
-		sessionTime -= 60
-		session.html(time(sessionTime))
-		clock.html(time(sessionTime))
+		if (!started && sessionTime > 60){
+			sessionTime -= 60
+			session.html(time(sessionTime))
+			clock.html(time(sessionTime))
+		}
 	});
 
 	/*Break timer clicks*/
 	$("#breakUp").on('click', function(){
-		breakTime += 60
-		b.html(time(breakTime))
+		if (!started ){
+			breakTime += 60
+			b.html(time(breakTime))
+		}
+		
 	});
 
 	$("#breakDown").on('click', function(){
-		breakTime -= 60
-		b.html(time(breakTime))
+		if (!started &&  breakTime > 60){
+			breakTime -= 60
+			b.html(time(breakTime))
+		}
 	});
 
 
@@ -109,23 +165,20 @@ $(document).ready(function(){
 	
 
 	$("#start").on('click', function(){
+		if (!started  || paused){
 		start();
-		$(this).prop('disabled', true);
+		}
 	});
 	$("#pause").on('click', function(){
 		pause();
-		$("#start").prop('disabled', false);
 	});
 
 	$("#stop").on('click', function(){
 		stop();
-		$("#start").prop('disabled', false);
 	});
 
 	$("#reset").on('click', function(){
 		reset();
-		$("#start").prop('disabled', false);
-
 	});
 
 });
