@@ -1,4 +1,15 @@
+/*TODOS
 
+
+- stop funksjonen er litt fucked hvis du trykker start, reset - stop.
+- Hvis du trykker stop, og prøver å endre tiden skjer det noe feil med motsatt time()
+	ETC hvis du er på study og endrer break. så henter den fra noe annet?.
+
+
+
+
+
+*/
 /*start values in seconds*/
 var started = false;
 var paused = false;
@@ -93,22 +104,23 @@ function reset() {
 	session.html(time(sessionTime));
 	b.html(time(breakTime));
 	clock.html(time(sessionTime))
+	haveBeenStartedOnce = false;
+	onBreak =false;
 	started = false;
 	paused = false;
 	pause();
 }
 
 function stop(){
-	started = false;
-	paused = false;
 	if (haveBeenStartedOnce){
 	sessionTime = sessionStartValue;	
 	}
-	
+
 	clock.html(time(sessionTime));
 	haveBeenStartedOnce = false;
 	clearInterval(intervals);
-	
+	started = false;
+	paused = false
 }
 
 
